@@ -24,6 +24,6 @@ jobs:
         if: github.ref == 'refs/heads/main'
         uses: JamesIves/github-pages-deploy-action@v4.7.2
         with:
-          BRANCH: main
+          BRANCH: gh-pages
           FOLDER: composeApp/build/dist/wasmJs/productionExecutable
           CLEAN: true
