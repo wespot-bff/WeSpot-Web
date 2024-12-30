@@ -1,11 +1,14 @@
 package com.wespot.web
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.VerticalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.wespot.web.designsystem.theme.WeSpotThemeManager
 import kotlinx.collections.immutable.persistentListOf
 import org.jetbrains.compose.resources.painterResource
 import wespot_web.composeapp.generated.resources.Res
@@ -24,16 +27,23 @@ fun LandingScreen() {
         Res.drawable.landing4,
         Res.drawable.landing5,
     )
+    val playStoreUrl = "https://play.google.com/store/apps/details?id=com.bff.wespot.real"
     val pagerState = rememberPagerState { imageList.size }
 
     VerticalPager(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = WeSpotThemeManager.colors.backgroundColor),
         state = pagerState,
     ) {
         Image(
             painter = painterResource(imageList[it]),
             contentDescription = "Lading Page Image $it",
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .clickable {
+                    js("window.open($playStoreUrl, '_blank')")
+                },
         )
     }
 }
