@@ -1,7 +1,9 @@
 name: Build and Publish GitHub Pages
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
