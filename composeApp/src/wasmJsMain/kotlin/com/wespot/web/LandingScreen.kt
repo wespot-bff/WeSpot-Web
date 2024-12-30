@@ -27,7 +27,6 @@ fun LandingScreen() {
         Res.drawable.landing4,
         Res.drawable.landing5,
     )
-    val playStoreUrl = "https://play.google.com/store/apps/details?id=com.bff.wespot.real"
     val pagerState = rememberPagerState { imageList.size }
 
     VerticalPager(
@@ -42,8 +41,12 @@ fun LandingScreen() {
             modifier = Modifier
                 .fillMaxSize()
                 .clickable {
-                    js("window.open($playStoreUrl, '_blank')")
+                    openPlayStore()
                 },
         )
     }
+}
+
+fun openPlayStore() {
+    js("window.open('https://play.google.com/store/apps/details?id=com.bff.wespot.real', '_blank')")
 }
