@@ -26,6 +26,9 @@ private object CommonMainDrawable0 {
 
   public val landing5: DrawableResource by 
       lazy { init_landing5() }
+
+  public val main_logo: DrawableResource by 
+      lazy { init_main_logo() }
 }
 
 @InternalResourceApi
@@ -36,6 +39,7 @@ internal fun _collectCommonMainDrawable0Resources(map: MutableMap<String, Drawab
   map.put("landing3", CommonMainDrawable0.landing3)
   map.put("landing4", CommonMainDrawable0.landing4)
   map.put("landing5", CommonMainDrawable0.landing5)
+  map.put("main_logo", CommonMainDrawable0.main_logo)
 }
 
 internal val Res.drawable.compose_multiplatform: DrawableResource
@@ -102,5 +106,16 @@ private fun init_landing5(): DrawableResource = org.jetbrains.compose.resources.
     setOf(
       org.jetbrains.compose.resources.ResourceItem(setOf(),
     "composeResources/wespot_web.composeapp.generated.resources/drawable/landing5.png", -1, -1),
+    )
+)
+
+internal val Res.drawable.main_logo: DrawableResource
+  get() = CommonMainDrawable0.main_logo
+
+private fun init_main_logo(): DrawableResource = org.jetbrains.compose.resources.DrawableResource(
+  "drawable:main_logo",
+    setOf(
+      org.jetbrains.compose.resources.ResourceItem(setOf(),
+    "composeResources/wespot_web.composeapp.generated.resources/drawable/main_logo.xml", -1, -1),
     )
 )
