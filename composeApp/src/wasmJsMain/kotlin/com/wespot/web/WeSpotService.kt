@@ -43,13 +43,12 @@ fun WeSpotService() {
                             onSelected = {
                                 currentSelectedItem = it
                             },
-                            modifier = Modifier.fillMaxWidth(),
                         )
                     },
                     navigation = {
                         Image(
                             painter = painterResource(resource = Res.drawable.main_logo),
-                            contentDescription = "Main_Logo",
+                            contentDescription = "Main_logo",
                         )
                     },
                 )
@@ -85,12 +84,8 @@ fun RootNavigation(selectedIndex: Int) {
 fun HomeTopNavigationTab(
     selectedIndex: Int,
     onSelected: (Int) -> Unit,
-    modifier: Modifier = Modifier,
 ) {
-    NavigationBar(
-        containerColor = WeSpotThemeManager.colors.backgroundColor,
-        modifier = modifier,
-    ) {
+    NavigationBar(containerColor = WeSpotThemeManager.colors.backgroundColor) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceAround,
@@ -122,7 +117,7 @@ private fun RowScope.TabItem(
     ) {
         Text(
             text = title,
-            style = StaticTypography().body9,
+            style = StaticTypography().body2,
             color = if (selected) {
                 WeSpotThemeManager.colors.abledIconColor
             } else {

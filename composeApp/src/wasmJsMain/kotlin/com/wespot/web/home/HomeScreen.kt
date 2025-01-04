@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.interaction.collectIsDraggedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -62,21 +63,24 @@ fun HomeScreen() {
             modifier = Modifier.padding(innerPadding),
             verticalArrangement = Arrangement.spacedBy(32.dp),
         ) {
-            Text(
-                text = "WeSpot",
-                style = StaticTypography().header1,
-                color = WeSpotThemeManager.colors.txtTitleColor,
-            )
-
-            HorizontalPager(
-                state = pagerState,
-                modifier = Modifier.width(512.dp)
-            ) {
-                Image(
-                    painter = painterResource(imageList[it]),
-                    contentDescription = "Lading Page Image $it",
-                    contentScale = ContentScale.FillWidth,
+            Row {
+                Text(
+                    text = "WeSpot",
+                    style = StaticTypography().header1,
+                    color = WeSpotThemeManager.colors.txtTitleColor,
+                    modifier = Modifier.weight(1f),
                 )
+
+                HorizontalPager(
+                    state = pagerState,
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Image(
+                        painter = painterResource(imageList[it]),
+                        contentDescription = "Lading Page Image $it",
+                        contentScale = ContentScale.FillWidth,
+                    )
+                }
             }
         }
     }
