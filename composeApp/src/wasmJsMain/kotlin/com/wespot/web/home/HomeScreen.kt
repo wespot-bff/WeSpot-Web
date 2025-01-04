@@ -1,22 +1,23 @@
 package com.wespot.web.home
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.collectIsDraggedAsState
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.pager.VerticalPager
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import com.wespot.web.designsystem.component.WSTopBar
+import androidx.compose.ui.unit.dp
+import com.wespot.web.designsystem.theme.StaticTypography
 import com.wespot.web.designsystem.theme.WeSpotThemeManager
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.delay
@@ -28,7 +29,6 @@ import wespot_web.composeapp.generated.resources.landing2
 import wespot_web.composeapp.generated.resources.landing3
 import wespot_web.composeapp.generated.resources.landing4
 import wespot_web.composeapp.generated.resources.landing5
-import wespot_web.composeapp.generated.resources.main_logo
 
 private val imageList = persistentListOf(
     Res.drawable.landing1,
@@ -38,7 +38,6 @@ private val imageList = persistentListOf(
     Res.drawable.landing5,
 )
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen() {
     val pagerState = rememberPagerState { imageList.size }
@@ -57,42 +56,28 @@ fun HomeScreen() {
     }
 
     Scaffold(
-        topBar = {
-            WSTopBar(
-                title = {
-                    // HomeTopBarTab()
-                },
-                navigation = {
-                    Image(
-                        painter = painterResource(resource = Res.drawable.main_logo),
-                        contentDescription = "Main_Logo",
-                    )
-                },
-            )
-        }
+        modifier = Modifier.fillMaxSize(),
     ) { innerPadding ->
-        VerticalPager(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(color = WeSpotThemeManager.colors.backgroundColor)
-                .padding(innerPadding),
-            state = pagerState,
+        Column(
+            modifier = Modifier.padding(innerPadding),
+            verticalArrangement = Arrangement.spacedBy(32.dp),
         ) {
-            Image(
-                painter = painterResource(imageList[it]),
-                contentDescription = "Lading Page Image $it",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable { openPlayStore() },
-                contentScale = ContentScale.FillWidth,
+            Text(
+                text = "WeSpot",
+                style = StaticTypography().header1,
+                color = WeSpotThemeManager.colors.txtTitleColor,
             )
+
+            HorizontalPager(
+                state = pagerState,
+                modifier = Modifier.width(512.dp)
+            ) {
+                Image(
+                    painter = painterResource(imageList[it]),
+                    contentDescription = "Lading Page Image $it",
+                    contentScale = ContentScale.FillWidth,
+                )
+            }
         }
     }
-}
-
-@Composable
-fun HomeTopBarTab(
-    onTabClick: (Int) -> Unit,
-) {
-
 }
