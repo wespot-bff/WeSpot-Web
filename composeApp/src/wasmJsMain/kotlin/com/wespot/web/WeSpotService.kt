@@ -3,13 +3,12 @@ package com.wespot.web
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.Scaffold
@@ -17,7 +16,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.wespot.web.about.AboutScreen
 import com.wespot.web.designsystem.component.WSTopBar
 import com.wespot.web.designsystem.theme.StaticTypography
@@ -71,12 +69,6 @@ fun RootNavigation(selectedIndex: Int) {
         TopNavigationTabState.ABOUT.ordinal -> {
             AboutScreen()
         }
-        TopNavigationTabState.CONTACT.ordinal -> {
-            HomeScreen()
-        }
-        TopNavigationTabState.MAKERS.ordinal -> {
-            HomeScreen()
-        }
     }
 }
 
@@ -87,7 +79,6 @@ fun HomeTopNavigationTab(
 ) {
     NavigationBar(containerColor = WeSpotThemeManager.colors.backgroundColor) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -110,9 +101,13 @@ private fun RowScope.TabItem(
 ) {
     Box(
         modifier = Modifier
-            .size(80.dp)
             .weight(1f)
-            .clickable { onClick.invoke() },
+            .clickable(
+                indication = null,
+                interactionSource = remember { MutableInteractionSource() }
+            ) {
+                onClick.invoke()
+            },
         contentAlignment = Alignment.Center,
     ) {
         Text(
@@ -130,8 +125,6 @@ private fun RowScope.TabItem(
 enum class TopNavigationTabState(
     val title: String,
 ) {
-    HOME(title = "Home"),
-    ABOUT(title = "About"),
-    CONTACT(title = "Contact"),
-    MAKERS(title = "Makers"),
+    HOME(title = "HOME"),
+    ABOUT(title = "ABOUT"),
 }

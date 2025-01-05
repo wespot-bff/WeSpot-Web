@@ -1,28 +1,13 @@
 package com.wespot.web.home
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.interaction.collectIsDraggedAsState
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.unit.dp
-import com.wespot.web.designsystem.theme.StaticTypography
-import com.wespot.web.designsystem.theme.WeSpotThemeManager
 import kotlinx.collections.immutable.persistentListOf
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collectLatest
 import org.jetbrains.compose.resources.painterResource
 import wespot_web.composeapp.generated.resources.Res
 import wespot_web.composeapp.generated.resources.landing1
@@ -41,47 +26,15 @@ private val imageList = persistentListOf(
 
 @Composable
 fun HomeScreen() {
-    val pagerState = rememberPagerState { imageList.size }
-    val isDraggedState = pagerState.interactionSource.collectIsDraggedAsState()
+    val scrollState = rememberScrollState()
 
-    /** 드래그 가능한 상태가 아닌 경우, 자동으로 스와이프 되도록 설정 */
-    LaunchedEffect(Unit) {
-        snapshotFlow { isDraggedState.value }
-            .collectLatest { isDragged ->
-                if (isDragged) return@collectLatest
-                while (true) {
-                    delay(3_000)
-                    pagerState.animateScrollToPage(pagerState.currentPage.inc())
-                }
-            }
-    }
-
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-    ) { innerPadding ->
-        Column(
-            modifier = Modifier.padding(innerPadding),
-            verticalArrangement = Arrangement.spacedBy(32.dp),
-        ) {
-            Row {
-                Text(
-                    text = "WeSpot",
-                    style = StaticTypography().header1,
-                    color = WeSpotThemeManager.colors.txtTitleColor,
-                    modifier = Modifier.weight(1f),
-                )
-
-                HorizontalPager(
-                    state = pagerState,
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Image(
-                        painter = painterResource(imageList[it]),
-                        contentDescription = "Lading Page Image $it",
-                        contentScale = ContentScale.FillWidth,
-                    )
-                }
-            }
+    Column(modifier = Modifier.verticalScroll(scrollState)) {
+        imageList.forEachIndexed { index, item ->
+            Image(
+                painter = painterResource(item),
+                contentDescription = "Lading Page Image $index",
+                contentScale = ContentScale.FillWidth,
+            )
         }
     }
 }
