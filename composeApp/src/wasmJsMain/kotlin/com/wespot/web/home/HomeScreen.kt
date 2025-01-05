@@ -2,6 +2,8 @@ package com.wespot.web.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
@@ -28,12 +30,17 @@ private val imageList = persistentListOf(
 fun HomeScreen() {
     val scrollState = rememberScrollState()
 
-    Column(modifier = Modifier.verticalScroll(scrollState)) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(scrollState)
+    ) {
         imageList.forEachIndexed { index, item ->
             Image(
                 painter = painterResource(item),
                 contentDescription = "Lading Page Image $index",
                 contentScale = ContentScale.FillWidth,
+                modifier = Modifier.fillMaxWidth(),
             )
         }
     }

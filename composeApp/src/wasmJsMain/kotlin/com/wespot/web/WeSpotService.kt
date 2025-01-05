@@ -77,7 +77,7 @@ fun HomeTopNavigationTab(
     selectedIndex: Int,
     onSelected: (Int) -> Unit,
 ) {
-    NavigationBar(containerColor = WeSpotThemeManager.colors.backgroundColor) {
+    NavigationBar(containerColor = WeSpotThemeManager.colors.naviColor) {
         Row(
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically,
@@ -101,7 +101,6 @@ private fun RowScope.TabItem(
 ) {
     Box(
         modifier = Modifier
-            .weight(1f)
             .clickable(
                 indication = null,
                 interactionSource = remember { MutableInteractionSource() }
