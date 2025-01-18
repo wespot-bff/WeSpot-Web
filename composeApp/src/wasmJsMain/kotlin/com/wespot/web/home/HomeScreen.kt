@@ -9,22 +9,9 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import kotlinx.collections.immutable.persistentListOf
 import org.jetbrains.compose.resources.painterResource
 import wespot_web.composeapp.generated.resources.Res
-import wespot_web.composeapp.generated.resources.landing1
-import wespot_web.composeapp.generated.resources.landing2
-import wespot_web.composeapp.generated.resources.landing3
-import wespot_web.composeapp.generated.resources.landing4
-import wespot_web.composeapp.generated.resources.landing5
-
-private val imageList = persistentListOf(
-    Res.drawable.landing1,
-    Res.drawable.landing2,
-    Res.drawable.landing3,
-    Res.drawable.landing4,
-    Res.drawable.landing5,
-)
+import wespot_web.composeapp.generated.resources.landinPage
 
 @Composable
 fun HomeScreen() {
@@ -35,13 +22,11 @@ fun HomeScreen() {
             .fillMaxSize()
             .verticalScroll(scrollState)
     ) {
-        imageList.forEachIndexed { index, item ->
-            Image(
-                painter = painterResource(item),
-                contentDescription = "Lading Page Image $index",
-                contentScale = ContentScale.FillWidth,
-                modifier = Modifier.fillMaxWidth(),
-            )
-        }
+        Image(
+            painter = painterResource(Res.drawable.landinPage),
+            contentDescription = "Lading Page Image",
+            contentScale = ContentScale.FillWidth,
+            modifier = Modifier.fillMaxWidth(),
+        )
     }
 }
